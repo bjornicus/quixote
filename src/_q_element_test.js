@@ -10,10 +10,7 @@ describe("QElement", function() {
 	var frame;
 
 	before(function(done) {
-		Frame.create(window.document.body, 800, 1000, { stylesheet: "/base/src/__reset.css" }, function(theFrame) {
-			frame = theFrame;
-			done();
-		});
+		frame = Frame.create(window.document.body, 800, 1000, { stylesheet: "/base/src/__reset.css" }, done);
 	});
 
 	after(function() {
@@ -143,6 +140,11 @@ describe("QElement", function() {
 			assert.exception(function() {
 				element.diff({ XXX: "non-existant" });
 			}, /'XXX' is unknown and can't be used with diff()/);
+		});
+
+		it("diff supports relative comparisons", function() {
+			var two = frame.addElement("<div style='position: absolute; top: 20px;'>two</div>");
+			assert.equal(element.diff({ top: two.top }), "", "relative diff");
 		});
 
 	});

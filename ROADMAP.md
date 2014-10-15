@@ -3,36 +3,47 @@
 ## Release Ideas
 
 * **✔ v0.1** Basic DOM manipulation; raw position and style information
-* "Cooked" absolute position info; initial assertion API
+* **✔ v0.2** "Cooked" absolute position info; initial assertion API
 * Positioning relative to other elements
 * Positioning relative to page
 * Initial "cooked" styling (colors?)
-* Improve Frame.create() API to be more convenient in before()?
 * ...more TBD
 
 
-## Current Feature: Initial Assertion API
+## Current Feature: Relative Positioning
 
-* width and height
-* document diff() API
+* Clean up mess in ElementEdge.diff()
+* Offset position comparisons (compare left edge to right edge + 10 px)
+* middle and center
+* height and width
+* fractional height and width
 
 ```javascript
 element.diff({
-  top: 13,
-  bottom: 40
+  top: foo.top,
+  bottom: bar.middle
+  left: baz.left.plus(10)
+  right: baz.left.plus(element.width)
 });
 ```
 
 ## To Do
-* How do we use ensure.signature without creating a circular dependency?
-* Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
-* Rename `Frame` to `QFrame`?
-* Should frame.remove() cause additional frame method calls to fail fast?
+
+* Constraints need to describe themselves
+* Function to resolve ElementEdge? e.g., ElementEdge.is()
+* Need polymorphism in ElementEdge.diff()?
+
+
+## Future Features
+* width and height constraints
+* Should width and height go inside Frame's "options" object?
+
+
+## Future To Do / Off-camera
+
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
-
-
-## Future / Off-camera
-
+* How do we use ensure.signature in element_edge.js without creating a circular dependency?
+* Rename `Frame` to `QFrame`?
 * Get IE 8 ensure exceptions to show stack trace
 * Factor out functionName() (duplicated in ensure.js and assert.js)
 * Factor out duplication of message variable manipulation in assert.js
